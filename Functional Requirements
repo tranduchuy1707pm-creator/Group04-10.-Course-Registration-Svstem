@@ -1,1 +1,69 @@
-
+I. NON-FUNCTIONAL REQUIREMENTS
+1. Product Requirements
+1.1. Usability Requirements
+- Users shall be able to learn how to use the Course Registration System within 30 minutes.
+- Students should be able to complete common tasks, such as logging in, searching for courses, registering for courses, and canceling registrations, in no more than 3–4 steps.
+- The user interface shall have a consistent layout, buttons, colors, menus, and notification messages across all screens.
+- The system shall display clear and understandable error messages when users enter invalid information or perform unsuccessful operations.
+- The system shall support Vietnamese to make it easier for students to use.
+1.2. Efficiency Requirements
+a) Performance Requirements:
+- The application shall start within 3–5 seconds on an ordinary computer.
+- User login shall be processed within 2 seconds under normal operating conditions.
+- Searching for courses and displaying the course list shall take no more than 3 seconds.
+- Registering or canceling a course shall be processed within 2 seconds under normal operating conditions.
+- The system shall support multiple students accessing the course registration system simultaneously. 
+b) Space Requirements:
+- The application shall use no more than 200 MB of memory under normal operating conditions, excluding database storage.
+- The application shall run without requiring special hardware or a dedicated graphics card.
+- The database shall store student information, course information, and registration records efficiently.
+- The system shall regularly back up registration data to prevent data loss in case of unexpected failures.
+1.3. Dependability Requirements
+- The system shall achieve a target successful operation rate of at least 90% under normal operating conditions.
+- The system shall be available during the university's course registration periods.
+- Unexpected system failures shall not result in incomplete or duplicate course registration records.
+- The system shall validate registration information before saving it to the database.
+- The system shall display an error message within 3 seconds when a registration operation fails.
+- The system shall maintain data consistency when multiple students register for the same course simultaneously.
+1.4. Security Requirements
+- Users shall log in using their student ID and password.
+- Passwords shall be hashed using a secure algorithm such as bcrypt and shall never be stored in plain text.
+- The system shall prevent unauthorized users from accessing student registration information.
+- Every database query shall use parameterized statements to prevent SQL injection attacks.
+- Students shall only be allowed to view and modify their own course registration information.
+- The system shall validate user input to prevent invalid or malicious data.
+- Users shall be logged out securely when they choose the logout function.
+2. Organizational Requirements
+2.1. Environmental Requirements
+- The application shall run on Windows 10 and Windows 11 operating systems.
+- The minimum hardware requirements shall include:
+  - CPU: 2-core processor.
+  - RAM: 4 GB.
+  - Free disk space: 2 GB.
+- The system shall support modern web browsers such as Google Chrome, Microsoft Edge, and Firefox.
+- The system shall require an Internet connection when accessing the online registration system.
+2.2. Operational Requirements
+- Each student shall have a unique student ID and password to verify their identity.
+- Students shall log in before accessing course registration functions.
+- The system shall automatically update available course seats after successful registration or cancellation.
+- The system shall provide clear notifications for successful and unsuccessful registration operations.
+- Database backup and recovery procedures shall be performed regularly.
+- Administrators shall monitor course registration information and system operation.
+2.3. Development Requirements
+- Programming language: Python.
+- Database management system: SQLite (for the current prototype); PostgreSQL may be used for future deployment.
+- Documentation, source code, and team management: GitHub.
+- Drawing DFD, Use Case, Class Diagram, and Database Schema: https://app.diagrams.net/
+- GUI design: Figma.
+- Creating test cases: Microsoft Excel.
+- Programming IDE:Visual Studio Code.
+- Bug tracking tools: Bugzilla.
+- Unit testing: pytest (Python).
+- Packaging and deployment: Docker (if required for deployment).
+3. External Requirements
+3.1. Legal and Privacy Requirements
+- The system shall protect students' personal information in accordance with applicable Vietnamese personal data protection laws and regulations.
+- The system shall comply with Decree No. 13/2023/ND-CP on Personal Data Protection, where applicable.
+- Student personal information shall only be collected and processed for legitimate course registration purposes.
+- The system shall prevent unauthorized disclosure, modification, or deletion of student information.
+- Access to personal data shall be restricted to authorized users only.
