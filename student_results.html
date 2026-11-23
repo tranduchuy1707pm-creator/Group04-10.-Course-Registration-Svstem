@@ -1,0 +1,18 @@
+from flask import Flask
+from app.extensions import db
+
+from app.routes.lecturer_routes import lecturer_bp
+
+
+def create_app():
+
+    app = Flask(__name__)
+
+    app.config.from_object("config")
+
+    db.init_app(app)
+
+    # Register Lecturer Blueprint
+    app.register_blueprint(lecturer_bp)
+
+    return app
