@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2>Grade Management</h2>
+
+    <h5>
+        Class: {{ class_section.class_name }}
+    </h5>
+
+    <hr>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+
+        {% for category, message in messages %}
+
+            <div class="alert alert-{{ category }}">
+                {{ message }}
+            </div>
+
+        {% endfor %}
+
+    {% endwith %}
+
+    <form
+        method="POST"
+        action="{{ url_for(
+            'lecturer.save_grades',
+            class_id=class_section.id
+        ) }}"
+    >
+
+        <table class="table table-bordered table-striped">
+
+            <thead class="table-dark">
+
+                <tr>
+                    <th>Enrollment ID</th>
+                    <th>Student ID</th>
+                    <th>Student Name</th>
+                    <th>Grade</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for item in students %}
+
+                <tr>
+
+                    <td>{{ item.id }}</td>
+
+                    <td>{{ item.student_id }}</td>
+
+                    <td>
+                        {{ item.student.full_name }}
+                    </td>
+
+                    <td>
+
+                        <input
+                            type="number"
+                            name="grade_{{ item.id }}"
+                            class="form-control"
+                            min="0"
+                            max="10"
+                            step="0.1"
+                            value="{{ item.grade if item.grade is not none else '' }}"
+                            placeholder="Enter grade"
+                        >
+
+                    </td>
+
+                </tr>
+
+                {% else %}
+
+                <tr>
+                    <td colspan="4" class="text-center">
+                        No students enrolled.
+                    </td>
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+        <button
+            type="submit"
+            class="btn btn-success"
+        >
+            Save Grades
+        </button>
+
+        <a
+            href="{{ url_for('lecturer.teaching_classes') }}"
+            class="btn btn-secondary"
+        >
+            Back
+        </a>
+
+    </form>
+
+</div>
+
+{% endblock %}
