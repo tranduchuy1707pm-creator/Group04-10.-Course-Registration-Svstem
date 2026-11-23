@@ -1,0 +1,108 @@
+from flask import (
+    Blueprint,
+    render_template,
+    request,
+    redirect,
+    url_for,
+    flash,
+    session
+)
+
+from app.services.class_service import ClassService
+from app.routes.decorators import role_required
+
+
+lecturer_bp = Blueprint(
+    "lecturer",
+    __name__,
+    url_prefix="/lecturer"
+)
+
+
+# Lecturer Dashboard
+@lecturer_bp.route("/")
+@role_required("lecturer")
+def dashboard():
+
+    lecturer_id = session["user_id"]
+
+    classes = ClassService.get_teaching_classes(
+        lecturer_id
+    )
+
+    return render_template(
+        "lecturer/teaching_classes.html",
+        classes=classes
+    )
+
+
+# Teaching Classes
+@lecturer_bp.route("/teaching-classes")
+@role_required("lecturer")
+def teaching_classes():
+
+    lecturer_id = session["user_id"]
+
+    classes = ClassService.get_teaching_classes(
+        lecturer_id
+    )
+
+    return render_template(
+        "lecturer/teaching_classes.html",
+        classes=classes
+    )
+
+
+# View Students
+@lecturer_bp.route("/class/<int:class_id>/students")
+@role_required("lecturer")
+def class_students(class_id):
+
+    lecturer_id = session["user_id"]
+
+    class_section, students = ClassService.get_students(
+        class_id,
+        lecturer_id
+    )
+
+    if class_section is None:
+        flash("Class not found or access denied.", "danger")
+
+        return redirect(
+            url_for("lecturer.teaching_classes")
+        )
+
+    return render_template(
+        "lecturer/grade_entry.html",
+        class_section=class_section,
+        students=students
+    )
+
+
+# Grade Entry
+@lecturer_bp.route(
+    "/class/<int:class_id>/grades",
+    methods=["POST"]
+)
+@role_required("lecturer")
+def save_grades(class_id):
+
+    lecturer_id = session["user_id"]
+
+    success, message = ClassService.save_grades(
+        class_id,
+        lecturer_id,
+        request.form
+    )
+
+    if success:
+        flash(message, "success")
+    else:
+        flash(message, "danger")
+
+    return redirect(
+        url_for(
+            "lecturer.class_students",
+            class_id=class_id
+        )
+    )
