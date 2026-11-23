@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2>Lecturer Dashboard</h2>
+
+    <p>Teaching Classes Management</p>
+
+    <hr>
+
+    <h4>My Teaching Classes</h4>
+
+    <table class="table table-bordered table-hover">
+
+        <thead class="table-dark">
+            <tr>
+                <th>Class ID</th>
+                <th>Class Name</th>
+                <th>Course ID</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for item in classes %}
+
+            <tr>
+                <td>{{ item.id }}</td>
+
+                <td>{{ item.class_name }}</td>
+
+                <td>{{ item.course_id }}</td>
+
+                <td>
+                    <a
+                        href="{{ url_for(
+                            'lecturer.class_students',
+                            class_id=item.id
+                        ) }}"
+                        class="btn btn-primary btn-sm"
+                    >
+                        View Students
+                    </a>
+                </td>
+            </tr>
+
+            {% else %}
+
+            <tr>
+                <td colspan="4" class="text-center">
+                    No teaching classes found.
+                </td>
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}
